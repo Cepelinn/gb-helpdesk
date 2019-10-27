@@ -32,17 +32,17 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'custom-nav navbar-fixed-top',
         ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-right navbar-menu'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar-menu__item']],
+            ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar-menu__item']],
+            ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar-menu__item']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar-menu__item']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -54,7 +54,7 @@ AppAsset::register($this);
                 . '</li>'
             ),
             Yii::$app->user->isGuest ? (
-                ['label' => 'Registration', 'url' => ['/site/registration']]
+                ['label' => 'Registration', 'url' => ['/site/registration'],'options'=>['class'=>'navbar-menu__item']]
             ) : ''
         ],
     ]);
