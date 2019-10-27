@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-record-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class='page-title'><?= Html::encode($this->title) ?></h1>
 
     <div class="user-record-form">
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     	<div class="form-group">
-    		<?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    		<?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
     	</div>
 
     	<?php ActiveForm::end(); ?>

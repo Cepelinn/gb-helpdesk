@@ -134,3 +134,22 @@ a.desc:after {
 .navbar-menu__item a {
   color: #033953;
 }
+
+.page-title {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.user-record-create {
+  padding: 20px;
+  margin: 0 auto;
+  width: 400px;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.text-input {
+  border: 1px solid #d4d4d4;
+  border-radius: 2px;
+}
