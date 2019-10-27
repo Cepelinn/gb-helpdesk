@@ -22,7 +22,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\user\UserRecord',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -51,6 +51,11 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
         ],
         
     ],
