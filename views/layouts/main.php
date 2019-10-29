@@ -41,6 +41,9 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar-menu__item']],
             ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar-menu__item']],
             ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar-menu__item']],
+            Yii::$app->user->isGuest ? '' : (
+                ['label' => 'Add ticket', 'url' => ['/ticket/add'],'options'=>['class'=>'navbar-menu__item']]
+            ),
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar-menu__item']]
             ) : (

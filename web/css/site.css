@@ -141,7 +141,8 @@ a.desc:after {
 }
 
 .user-record-create,
-.site-login {
+.site-login,
+.add-ticket__container {
   padding: 20px;
   margin: 0 auto;
   width: 400px;
