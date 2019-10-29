@@ -140,7 +140,8 @@ a.desc:after {
   font-size: 30px;
 }
 
-.user-record-create {
+.user-record-create,
+.site-login {
   padding: 20px;
   margin: 0 auto;
   width: 400px;
