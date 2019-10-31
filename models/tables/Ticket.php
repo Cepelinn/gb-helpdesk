@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use app\models\user\UserRecord;
 
 
 /**
@@ -20,8 +21,8 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Users $responsible
- * @property Users $author
+ * @property UserRecord $responsible
+ * @property UserRecord $author
  * @property Status $status
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -45,8 +46,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['title', 'description'], 'string', 'max' => 255],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketStatus::className(), 'targetAttribute' => ['status_id' => 'id']],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserRecord::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserRecord::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -92,7 +93,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getResponsible()
     {
-        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
+        return $this->hasOne(UserRecord::className(), ['id' => 'responsible_id']);
     }
 
     /**
@@ -100,7 +101,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(UserRecord::className(), ['id' => 'author_id']);
     }
 
 }
