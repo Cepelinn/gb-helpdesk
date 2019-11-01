@@ -45,6 +45,9 @@ AppAsset::register($this);
                 ['label' => 'Add ticket', 'url' => ['/ticket/add'],'options'=>['class'=>'navbar-menu__item']]
             ),
             Yii::$app->user->isGuest ? (
+                ['label' => 'Registration', 'url' => ['/site/registration'],'options'=>['class'=>'navbar-menu__item']]
+            ) : (['label' => 'Profile', 'url' => ['/profile'],'options'=>['class'=>'navbar-menu__item']]),
+            Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar-menu__item']]
             ) : (
                 '<li>'
@@ -56,9 +59,7 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
             ),
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Registration', 'url' => ['/site/registration'],'options'=>['class'=>'navbar-menu__item']]
-            ) : ''
+            
         ],
     ]);
     NavBar::end();

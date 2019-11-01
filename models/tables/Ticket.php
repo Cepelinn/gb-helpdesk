@@ -3,6 +3,11 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
+use app\models\user\UserRecord;
+
 
 /**
  * This is the model class for table "ticket".
@@ -16,8 +21,8 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Users $responsible
- * @property Users $author
+ * @property UserRecord $responsible
+ * @property UserRecord $author
  * @property Status $status
  */
 class Ticket extends \yii\db\ActiveRecord
@@ -41,8 +46,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['title', 'description'], 'string', 'max' => 255],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => TicketStatus::className(), 'targetAttribute' => ['status_id' => 'id']],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserRecord::className(), 'targetAttribute' => ['responsible_id' => 'id']],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserRecord::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -63,6 +68,21 @@ class Ticket extends \yii\db\ActiveRecord
         ];
     }
 
+   public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                // если вместо метки времени UNIX используется datetime:
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     public function getStatus()
     {
         return $this->hasOne(TicketStatus::className(), ['id' => 'status_id']);
@@ -73,7 +93,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getResponsible()
     {
-        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
+        return $this->hasOne(UserRecord::className(), ['id' => 'responsible_id']);
     }
 
     /**
@@ -81,7 +101,7 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(UserRecord::className(), ['id' => 'author_id']);
     }
 
 }

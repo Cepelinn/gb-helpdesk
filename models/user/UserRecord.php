@@ -42,7 +42,7 @@ class UserRecord extends ActiveRecord implements IdentityInterface
             [['username',], 'string', 'max' => 45],
             [['password', 'authKey'], 'string', 'max' => 255],
             [['authKey', 'accessToken', 'name', 'email'], 'string', 'max' => 50],
-            [['username'], 'unique'],
+            [['username', 'email'], 'unique'],
         ];
     }
 
@@ -124,5 +124,14 @@ class UserRecord extends ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('Используйте логин и пароль');
+    }
+
+    public function validatePassword($password)
+    {
+        
+        if(Yii::$app->getSecurity()->validatePassword($password, $this->password)){
+            return true;
+        } 
+        //return $this->password === $password;
     }
 }

@@ -11,6 +11,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\user\UserRecord;
 use app\models\user\UserSearchModel;
+use app\models\user\ProfileUpdateForm;
+use app\models\user\PasswordChangeForm;
 
 class SiteController extends Controller
 {
@@ -132,6 +134,8 @@ class SiteController extends Controller
         ]);
     }
 
+    
+
     /**
      * Displays about page.
      *
@@ -140,6 +144,14 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = UserRecord::findOne($id)) !== null) {
+            return $model;
+        }
+        //throw new NotFoundHttpException('The requested page does not exist.');
     }
  
 }

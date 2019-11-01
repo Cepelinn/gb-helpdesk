@@ -6,25 +6,24 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\user\UserRecord */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'User Records', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Update User';
 ?>
-<div class="user-record-create">
-
-    <h1 class='page-title'><?= Html::encode($this->title) ?></h1>
+<?= $this->render('menu') ?>
+<br>
+<br>
+<div class="user-record-update">
 
     <div class="user-record-form">
 
-    	<?php $form = ActiveForm::begin(['id' => 'reg-form']); ?>
+    	<?php $form = ActiveForm::begin(['id' => 'upd-form']); ?>
 
     	<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
-    	<?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
     	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+        <?= Html::a("Изменить пароль", ['profile/password-change']); ?>
 
     	<div class="form-group">
     		<?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
