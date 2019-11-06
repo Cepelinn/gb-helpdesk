@@ -62,8 +62,8 @@ class TicketController extends Controller
                     ->one();
 
             @$body = "A new ticket request was opend
-                    Title: ${$model->title}
-                    Description: ${$model->description}";
+                    Title: {$model->title}
+                    Description: {$model->description}";
                 
             Yii::$app->mailer->compose()
                     ->setTo(['service@yii.unu.local' => 'Service desc'])
