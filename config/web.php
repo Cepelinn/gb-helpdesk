@@ -57,8 +57,14 @@ $config = [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
-        
     ],
+
+    'modules' => [
+            'admin' => [
+                'class' => 'app\modules\admin',
+            ],
+    ],
+    
     'params' => $params,
 ];
 
