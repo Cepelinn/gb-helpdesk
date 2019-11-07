@@ -9,6 +9,10 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\user\UserRecord;
+use app\models\user\UserSearchModel;
+use app\models\user\ProfileUpdateForm;
+use app\models\user\PasswordChangeForm;
 
 class SiteController extends Controller
 {
@@ -80,8 +84,22 @@ class SiteController extends Controller
             return $this->goBack();
         }
 
-        $model->password = '';
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRegistration()
+    {
+        $model = new UserRecord();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $auth = Yii::$app->authManager;
+            $auth->assign($auth->getRole('user'), $model->id);
+            return $this->render('finish_reg');
+        }
+
+        return $this->render('registration', [
             'model' => $model,
         ]);
     }
@@ -116,6 +134,8 @@ class SiteController extends Controller
         ]);
     }
 
+    
+
     /**
      * Displays about page.
      *
@@ -125,4 +145,13 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    protected function findModel($id)
+    {
+        if (($model = UserRecord::findOne($id)) !== null) {
+            return $model;
+        }
+        //throw new NotFoundHttpException('The requested page does not exist.');
+    }
+ 
 }
