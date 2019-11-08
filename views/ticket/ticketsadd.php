@@ -1,1 +1,1 @@
-Ticket added!
+<div class="alert alert-success">You ticket was Send to service mail and now available at you Profile page</div>
