@@ -9,28 +9,27 @@ use yii\widgets\ActiveForm;
 $this->title = 'Update User';
 ?>
 <?= $this->render('menu') ?>
-<br>
-<br>
-<div class="user-record-update">
 
-    <div class="user-record-form">
+    <div class="user-record">
 
-    	<?php $form = ActiveForm::begin(['id' => 'upd-form']); ?>
+		<?php $form = ActiveForm::begin(['id' => 'upd-form',
+										'class' => 'user-record_form',
+										'fieldConfig' => [
+											'template' => '{input}{error}',
+											'options' => ['class' => 'form-group'],
+    									],
+										'errorCssClass' => 'error']);
+		?>
 
-    	<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'username')->textInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Username"])?>
 
-    	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    	<?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Name"]) ?>
 
-    	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-        <?= Html::a("Изменить пароль", ['profile/password-change']); ?>
+    	<?= $form->field($model, 'email')->textInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Email"]) ?>
 
     	<div class="form-group">
-    		<?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
-    	</div>
-
-    	<?php ActiveForm::end(); ?>
+    		<?= Html::submitButton('Save changes', ['class' => 'btn btn__approve btn__uppercase']) ?>
+		</div>
+		<?php ActiveForm::end(); ?>
 
     </div>
-
-</div>
