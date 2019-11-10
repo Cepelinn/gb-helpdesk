@@ -63,12 +63,21 @@ AppAsset::register($this);
             </div>
         </div>
 
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            
+        <div class="breadcrumbs">
+            <div class="container breadcrumb_container">
+                <h1 class="page_title"><? echo $this->title ?></h1>
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    'homeLink' => [
+                        'label' => 'Home',
+                        'url' => '/site/index',
+                        'class' => 'breadcrumb_link'
+                    ],
+                    'activeItemTemplate' => "<li class=\"breadcrumb_active\">{link}</li>\n"
+                ]) ?>
+                <?= Alert::widget() ?>
+                
+            </div>
         </div>
         <div class="container">
             <?= $content ?>
