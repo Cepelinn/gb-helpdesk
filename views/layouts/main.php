@@ -42,6 +42,17 @@ AppAsset::register($this);
                     ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar_menu-item']],
                     ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar_menu-item']],
                     ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar_menu-item']],
+                    ['label' => 'Add ticket',
+                        'url' => ['/ticket/add'],
+                        'options'=>['class'=>'navbar_menu-item'],
+                        'visible' => !Yii::$app->user->isGuest
+                        ],
+                        [
+                        'label' => 'Profile',
+                        'url' => ['/profile'],
+                        'options' => ['class' => 'navbar_menu-item'],
+                        'visible' => !Yii::$app->user->isGuest
+                        ],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar_menu-item']]
                     :
@@ -51,9 +62,11 @@ AppAsset::register($this);
                         'template' => '<a href="{url}" class="url-class" data-method = "post">{label}</a>',
                         'linkOptions' => ['data-method' => 'post']
                         ],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Register', 'url' => ['/site/registration'],'options' => ['class' => 'navbar_menu-item']] :
-                        ['label' => 'Add ticket', 'url' => ['/ticket/add'],'options'=>['class'=>'navbar_menu-item']],
+                        ['label' => 'Register',
+                        'url' => ['/site/registration'],
+                        'options' => ['class' => 'navbar_menu-item'],
+                        'visible' => Yii::$app->user->isGuest
+                        ],
                 ],
                 'options' => ['class' => 'navbar_menu'],
                 'activeCssClass'=>'navbar_menu-item__active',
