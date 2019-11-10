@@ -51,6 +51,13 @@ a:hover {
   color: #44494f;
 }
 
+.page_title {
+  color: #7f8c8c;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -141,4 +148,38 @@ a:hover {
   -moz-box-shadow: 0px 3px 0px 0px rgb(226, 83, 75);
   box-shadow: 0px 3px 0px 0px rgb(226, 83, 75);
   transition-duration: 0.3s;
+}
+
+.breadcrumb {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  list-style: none;
+}
+
+.breadcrumbs {
+  background-color: #ececec;
+}
+
+.breadcrumb_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.breadcrumb_link {
+  color: #7f8c8c;
+  font-size: 12px;
+  font-weight: 400;
+}
+.breadcrumb_link::after {
+  content: "/";
+  margin: 0 5px;
+}
+
+.breadcrumb_active {
+  color: #7f8c8c;
+  font-size: 12px;
+  font-weight: 400;
 }
