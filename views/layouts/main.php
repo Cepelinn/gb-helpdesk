@@ -49,7 +49,7 @@ AppAsset::register($this);
                         ],
                         [
                         'label' => 'Profile',
-                        'url' => ['/profile'],
+                        'url' => ['/profile/index'],
                         'options' => ['class' => 'navbar_menu-item'],
                         'visible' => !Yii::$app->user->isGuest
                         ],
