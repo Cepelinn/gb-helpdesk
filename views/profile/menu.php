@@ -4,9 +4,10 @@ use yii\widgets\Menu;
 ?>
 <?= Menu::widget([
     'items' => [
-        ['label' => 'Проофиль', 'url' => ['/profile']],
-        ['label' => 'Редактировать профиль', 'url' => ['profile/update']],
-        ['label' => 'Мои обращения', 'url' => ['ticket/my-tickets']],
+        ['label' => 'Profile overview', 'url' => ['/profile/index'],'options'=>['class'=>'profile_menu-item']],
+        ['label' => 'Edit profile', 'url' => ['profile/update'],'options'=>['class'=>'profile_menu-item']],
+        ['label' => 'Change password', 'url' => ['/profile/password-change'],'options'=>['class'=>'profile_menu-item']],
+        ['label' => 'My tickets', 'url' => ['ticket/my-tickets'],'options'=>['class'=>'profile_menu-item']],
     ],
     'options' => [
                     'id'=>'navid',
@@ -14,5 +15,6 @@ use yii\widgets\Menu;
                     'style'=>'float: left; font-size: 16px; list-style: none;',
                     'data'=>'menu',
                 ],
-    'activeCssClass'=>'active',
+                'options' => ['class' => 'profile_menu'],
+                'activeCssClass'=>'profile_menu-item__active',
 ]); ?>
