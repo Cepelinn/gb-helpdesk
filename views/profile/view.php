@@ -1,14 +1,18 @@
 <?php
 ?>
 <?= $this->render('menu') ?>
-<br>
-<br>
-<div class="user-view">
-    <div class="user_view_block">
-        <h1><?= $model->name ?></h1>
-        <div class="view_user_username"><?= $model->username ?></div>
-        <div class="view_user_email"><?= $model->email ?></div>
-        <div class="view_user_created">Дата регистрации:<?= $model->created_at ?></div>
-    </div>
 
+<div class="user-view">
+        <h2 class="block-title">User information summary</h2>
+        <ul class='user-view_summary'>
+            <li class='user-view_summary-menu-item'>
+                <span class='user-view_summary-category'>Username:&nbsp;</span><?= $model->username ?>
+            </li>
+            <li class='user-view_summary-menu-item'>
+                <span class='user-view_summary-category'>Email:&nbsp;</span><?= $model->email ?>
+            </li>
+            <li class='user-view_summary-menu-item'>
+                <span class='user-view_summary-category'>Registration Data:&nbsp;</span><?= $model->created_at ?>
+            </li>
+        </ul>
 </div>
