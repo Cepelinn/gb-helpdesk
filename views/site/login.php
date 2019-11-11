@@ -11,30 +11,30 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1 class='page-title'><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <div class="login">
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-    ]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'reg-form',
+                                            'class' => 'registration_form',
+                                            'fieldConfig' => [
+                                                'template' => '{input}{error}',
+                                                'options' => ['class' => 'form-group'],
+                                            ],
+                                            'errorCssClass' => 'error']);
+            ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'username')->textInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Username"])?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Password"]) ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+            <?= $form->field($model, 'rememberMe')->checkbox(['template' => '{input}{label}', 'class' => 'styled-checkbox']) ?>
 
-        <div class="form-group">
             <div class="form-group">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Log in', ['class' => 'btn btn__approve btn__uppercase']) ?>
             </div>
-        </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
     </div>
+
 </div>
