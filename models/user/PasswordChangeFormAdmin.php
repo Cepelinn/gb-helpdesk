@@ -8,9 +8,8 @@ use Yii;
 /**
  * Password reset form
  */
-class PasswordChangeForm extends Model
+class PasswordChangeFormAdmin extends Model
 {
-    public $currentPassword;
     public $newPassword;
     public $newPasswordRepeat;
  
@@ -32,8 +31,7 @@ class PasswordChangeForm extends Model
     public function rules()
     {
         return [
-            [['currentPassword', 'newPassword', 'newPasswordRepeat'], 'required'],
-            ['currentPassword', 'currentPassword'],
+            [['newPassword', 'newPasswordRepeat'], 'required'],
             ['newPasswordRepeat', 'compare', 'compareAttribute' => 'newPassword'],
         ];
     }
@@ -43,22 +41,9 @@ class PasswordChangeForm extends Model
         return [
             'newPassword' => Yii::t('app', 'USER_NEW_PASSWORD'),
             'newPasswordRepeat' => Yii::t('app', 'USER_REPEAT_PASSWORD'),
-            'currentPassword' => Yii::t('app', 'USER_CURRENT_PASSWORD'),
         ];
     }
  
-    /**
-     * @param string $attribute
-     * @param array $params
-     */
-    public function currentPassword($attribute, $params)
-    {
-        if (!$this->hasErrors()) {
-            if (!$this->_user->validatePassword($this->$attribute)) {
-                $this->addError($attribute, Yii::t('app', 'ERROR_WRONG_CURRENT_PASSWORD'));
-            }
-        }
-    }
     
  
     /**

@@ -8,6 +8,9 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
+
+use app\models\tables\AuthAssignment;
 
 /**
  *
@@ -20,9 +23,16 @@ use yii\db\Expression;
  * @property string $email
  * @property string $created_at
  * @property string $updated_at
+ *
+ * 
  */
 class UserRecord extends ActiveRecord implements IdentityInterface
 {
+
+
+
+
+
     /**
      * {@inheritdoc}
      */
@@ -43,6 +53,7 @@ class UserRecord extends ActiveRecord implements IdentityInterface
             [['password', 'authKey'], 'string', 'max' => 255],
             [['authKey', 'accessToken', 'name', 'email'], 'string', 'max' => 50],
             [['username', 'email'], 'unique'],
+            //[['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthAssignment::className(), 'targetAttribute' => ['id' => 'user_id']],
         ];
     }
 
@@ -61,6 +72,7 @@ class UserRecord extends ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'roleName' => 'Role Name',
         ];
     }
 
@@ -115,6 +127,26 @@ class UserRecord extends ActiveRecord implements IdentityInterface
     {
         return $this->authKey;
     }
+
+    
+
+    public function getRole()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
+    public function getRoleName()
+    {
+        $role = $this->role;
+
+        return $role ? $role->item_name : '';
+    }
+
+
+
+
+
+
 
     public function validateAuthKey($authKey)
     {
