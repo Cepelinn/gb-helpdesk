@@ -80,29 +80,12 @@ class AdminUserController extends Controller
     {
         $model = new UserRecord();
 
-        /*
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $auth = Yii::$app->authManager;
-            $auth->assign($auth->getRole('user'), $model->id);
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-            'roleList' => AuthItem::getRoleList(),
-        ]);
-
-        */
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //$auth = Yii::$app->authManager;
-            //$auth->assign($auth->getRole('user'), $model->id);
             $postt = Yii::$app->request->post("UserRecord");
 
             $auth = Yii::$app->authManager;
             $auth->assign($auth->getRole($postt["roleName"]), $model->id);
-
-            //return var_dump($postt["roleName"]);
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -126,12 +109,6 @@ class AdminUserController extends Controller
         $modelRole = AuthAssignment::find($id)
             ->where(['user_id' => $id])
             ->one();
-            
-            
-
-        //if ($model->load(Yii::$app->request->post())){
-        //    return var_dump(Yii::$app->request->post());
-        //}
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $postt = Yii::$app->request->post("AuthAssignment");

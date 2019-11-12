@@ -53,7 +53,6 @@ class UserRecord extends ActiveRecord implements IdentityInterface
             [['password', 'authKey'], 'string', 'max' => 255],
             [['authKey', 'accessToken', 'name', 'email'], 'string', 'max' => 50],
             [['username', 'email'], 'unique'],
-            //[['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthAssignment::className(), 'targetAttribute' => ['id' => 'user_id']],
         ];
     }
 
@@ -86,7 +85,6 @@ class UserRecord extends ActiveRecord implements IdentityInterface
         }
 
         if ($this->isNewRecord){
-            //generateRandomKey($lenght = 255)
             $this->authKey = Yii::$app->security->generateRandomString(20);
         }
 
