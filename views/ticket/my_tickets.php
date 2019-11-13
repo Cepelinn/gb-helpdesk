@@ -10,7 +10,12 @@ use yii\widgets\ActiveForm;
 <div class="">
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemView' => 'ticket_min_view',
+        'layout' => '{summary}<div class=\'ticket-card_container\'>{items}</div>',
+        'emptyText' => "There is no tickets here",
+        'itemView' => '_ticket_min_view',
+        'itemOptions' => [
+            'tag' => false,
+        ],
     ]);
     ?>
 </div>

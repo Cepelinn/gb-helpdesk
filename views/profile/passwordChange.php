@@ -5,26 +5,27 @@ use yii\helpers\Html;
 
 ?>
 <?= $this->render('menu') ?>
-<br>
-<br>
-<div class="user-profile-password-change">
- 
-    <h1><?= Html::encode($this->title) ?></h1>
- 
-    <div class="user-form">
- 
-        <?php $form = ActiveForm::begin(); ?>
- 
-        <?= $form->field($model, 'currentPassword')->passwordInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'newPassword')->passwordInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'newPasswordRepeat')->passwordInput(['maxlength' => true]) ?>
- 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'BUTTON_SAVE'), ['class' => 'btn btn-primary']) ?>
-        </div>
- 
-        <?php ActiveForm::end(); ?>
- 
+
+<div class="user-record">
+
+		<?php $form = ActiveForm::begin(['id' => 'change-form',
+										'class' => 'user-record_form',
+										'fieldConfig' => [
+											'template' => '{input}{error}',
+											'options' => ['class' => 'form-group'],
+    									],
+										'errorCssClass' => 'error']);
+		?>
+
+		<?= $form->field($model, 'currentPassword')->passwordInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Current password"])?>
+
+    	<?= $form->field($model, 'newPassword')->passwordInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "New password"]) ?>
+
+    	<?= $form->field($model, 'newPasswordRepeat')->passwordInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Repeat password"]) ?>
+
+    	<div class="form-group">
+    		<?= Html::submitButton('Change password', ['class' => 'btn btn__approve btn__uppercase']) ?>
+		</div>
+		<?php ActiveForm::end(); ?>
+
     </div>
- 
-</div>

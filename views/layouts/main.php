@@ -9,6 +9,8 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\widgets\Menu;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -25,62 +27,83 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
-<div class="wrap">
+<div class="wrapper">
+<div class="wrapper_content">
+    <div class="navbar">
+        <div class="container navbar_container">
+            <a href='<? echo Yii::$app->homeUrl; ?>' class="logo">
+                <img class="logo_img" src="<?php echo Url::to('@web/web/img/logo.svg'); ?>" />
+                <span class="logo_text">GB Helpdesk</span>
+            </a>
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'custom-nav navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right navbar-menu'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar-menu__item']],
-            ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar-menu__item']],
-            ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar-menu__item']],
-            Yii::$app->user->isGuest ? '' : (
-                ['label' => 'Add ticket', 'url' => ['/ticket/add'],'options'=>['class'=>'navbar-menu__item']]
-            ),
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Registration', 'url' => ['/site/registration'],'options'=>['class'=>'navbar-menu__item']]
-            ) : (['label' => 'Profile', 'url' => ['/profile'],'options'=>['class'=>'navbar-menu__item']]),
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar-menu__item']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-            
-        ],
-    ]);
-    NavBar::end();
-    ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        echo Menu::widget([
+                'items' => [
+                    ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar_menu-item']],
+                    ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar_menu-item']],
+                    ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar_menu-item']],
+                    ['label' => 'Add ticket',
+                        'url' => ['/ticket/add'],
+                        'options'=>['class'=>'navbar_menu-item'],
+                        'visible' => !Yii::$app->user->isGuest
+                        ],
+                        [
+                        'label' => 'Profile',
+                        'url' => ['/profile/index'],
+                        'options' => ['class' => 'navbar_menu-item'],
+                        'visible' => !Yii::$app->user->isGuest
+                        ],
+                    Yii::$app->user->isGuest ?
+                        ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar_menu-item']]
+                    :
+                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                        'url' => ['/site/logout'],
+                        'options' => ['class' => 'navbar_menu-item'],
+                        'template' => '<a href="{url}" class="url-class" data-method = "post">{label}</a>',
+                        'linkOptions' => ['data-method' => 'post']
+                        ],
+                        ['label' => 'Register',
+                        'url' => ['/site/registration'],
+                        'options' => ['class' => 'navbar_menu-item'],
+                        'visible' => Yii::$app->user->isGuest
+                        ],
+                ],
+                'options' => ['class' => 'navbar_menu'],
+                'activeCssClass'=>'navbar_menu-item__active',
+            ]
+        )
+    ?>
+            </div>
+        </div>
+
+        <div class="breadcrumbs">
+            <div class="container breadcrumb_container">
+                <h1 class="page_title"><? echo $this->title ?></h1>
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    'homeLink' => [
+                        'label' => 'Home',
+                        'url' => '/site/index',
+                        'class' => 'breadcrumb_link'
+                    ],
+                    'activeItemTemplate' => "<li class=\"breadcrumb_active\">{link}</li>\n"
+                ]) ?>
+                <?= Alert::widget() ?>
+                
+            </div>
+        </div>
+        <div class="container">
+            <?= $content ?>
+        </div>
     </div>
+    <footer class="footer">
+            <div class="container footer_container">
+                <p class="pull-left">&copy; GB Helpdesk <?= date('Y') ?></p>
+                <p class="pull-right"><?= Yii::powered() ?></p>
+            </div>
+    </footer>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

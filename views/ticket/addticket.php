@@ -7,25 +7,29 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\user\UserRecord */
 
 $this->title = 'Create Ticket';
-$this->params['breadcrumbs'][] = ['label' => 'User Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="add-ticket__container">
 
-    <h1 class='page-title'><?= Html::encode($this->title) ?></h1>
+    <div class="ticket-add">
 
-    <div class="add-ticket__form">
+	<?php $form = ActiveForm::begin(['class' => 'ticket-add_form',
+										'fieldConfig' => [
+											'template' => '{input}{error}',
+											'options' => ['class' => 'form-group'],
+    									],
+										'errorCssClass' => 'error']);
+		?>
 
-    	<?php $form = ActiveForm::begin(); ?>
-
-    	<?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
+    	<?= $form->field($model, 'title')->textInput(['maxlength' => true, 'class' => 'input', 'placeholder' => "Title"]) ?>
+		<?= $form->field($model, 'description')->textarea(['maxlength' => true, 'class' => 'textarea', 'placeholder' => "Description"]) ?>
 		<?= $form->field($model, 'author_id',['template' => '{input}'])->hiddenInput(['value' => Yii::$app->user->id]) ?>
 
     	<div class="form-group">
-    		<?= Html::submitButton('Create ticket', ['class' => 'btn btn-success btn-block']) ?>
+    		<?= Html::submitButton('Create ticket', ['class' => 'btn btn__approve btn__uppercase']) ?>
     	</div>
 
     	<?php ActiveForm::end(); ?>
 
-    </div>
+	</div>
+</div>
