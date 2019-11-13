@@ -65,7 +65,30 @@ class Ticket extends \yii\db\ActiveRecord
             'status_id' => 'Status ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'authorName' => 'Author Name',
+            'responsibleName' => 'Responsible Name',
+            'statusName' => 'Status Name',
         ];
+    }
+
+
+
+    public function beforeSave($insert)
+    {
+
+
+        $return = parent::beforeSave($insert);
+        
+        $arr = Yii::$app->request->post('Ticket');
+        if (array_key_exists ('responsibleName' ,$arr ) && $arr['responsibleName'] != ""){
+            $resName = $arr['responsibleName'];
+            $res = UserRecord::find()->where(['username' => $resName])->one();
+            $this->responsible_id = $res->id;
+        } else {
+            $this->responsible_id = '';
+        }
+
+        return $return;
     }
 
    public function behaviors()
@@ -88,13 +111,37 @@ class Ticket extends \yii\db\ActiveRecord
         return $this->hasOne(TicketStatus::className(), ['id' => 'status_id']);
     }
 
+    public function getStatusName()
+    {
+        $status = $this->status;
+
+        return $status ? $status->title : '';
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
+    
+    public function getUsers()
+    {
+        return $this->hasOne(UserRecord::className(), ['id' => 'author_id']);
+    }
+
     public function getResponsible()
     {
         return $this->hasOne(UserRecord::className(), ['id' => 'responsible_id']);
     }
+
+
+    public function getResponsibleName()
+    {
+        $responsible = $this->responsible;
+
+        return $responsible ? $responsible->username : '';
+
+        //return $responsible ? $responsible->username : 'не определен';
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -103,5 +150,14 @@ class Ticket extends \yii\db\ActiveRecord
     {
         return $this->hasOne(UserRecord::className(), ['id' => 'author_id']);
     }
+
+    public function getAuthorName()
+    {
+        $author = $this->author;
+
+        return $author ? $author->username : '';
+    }
+
+
 
 }
