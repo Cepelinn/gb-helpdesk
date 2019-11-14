@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "ticket_status".
@@ -40,5 +41,14 @@ class TicketStatus extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
         ];
+    }
+
+    public static function getStatusList(){
+        return ArrayHelper::map(
+            static::find()
+                ->select(['id', 'title'])
+                ->asArray()
+                ->all(), 'id', 'title'
+        );
     }
 }

@@ -141,6 +141,13 @@ class UserRecord extends ActiveRecord implements IdentityInterface
     }
 
 
+    public function findByUsername($username){
+        return static::findOne([
+                'username' => $username,
+            ]);
+    }
+
+
 
 
 
