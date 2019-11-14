@@ -194,7 +194,7 @@ button {
 
 .container {
   margin: 0 auto;
-  width: 1150px;
+  max-width: 1150px;
 }
 
 .footer_container {
