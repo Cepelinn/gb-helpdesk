@@ -53,6 +53,14 @@ AppAsset::register($this);
                         'options' => ['class' => 'navbar_menu-item'],
                         'visible' => !Yii::$app->user->isGuest
                         ],
+                        ['label' => 'Administration tools', 'url' => ['/admin\/'], 'items' => [
+                            ['label' => 'Users', 'url' => ['/admin/admin-user',],'options'=>['class'=>'navbar_menu-sub-item']],
+                            ['label' => 'Tickets', 'url' => ['/admin/admin-ticket'],'options'=>['class'=>'navbar_menu-sub-item'] ],
+                        ],
+                        'template' => '<a href={url} class=\'sublabel\'>{label}</a>',
+                        'options'=>['class'=>'navbar_menu-item navbar_menu-item__sub'],
+                        'visible' =>  (!Yii::$app->user->isGuest && Yii::$app->user->can('admin'))
+                        ],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar_menu-item']]
                     :
