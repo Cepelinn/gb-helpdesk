@@ -1,4 +1,8 @@
 <?php
+
+$this->title = 'Profile overview';
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <?= $this->render('menu') ?>
 

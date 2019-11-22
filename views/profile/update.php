@@ -6,7 +6,9 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\user\UserRecord */
 
-$this->title = 'Update User';
+$this->title = 'Update user information';
+$this->params['breadcrumbs'][] = ['label' => 'Profile overview', 'url' => ['/profile/index'], 'class' => 'breadcrumb_link'];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('menu') ?>
 

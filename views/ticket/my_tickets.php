@@ -3,6 +3,11 @@ use yii\widgets\ListView;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
+$this->title = 'My tickets';
+$this->params['breadcrumbs'][] = ['label' => 'Profile overview', 'url' => ['/profile/index'], 'class' => 'breadcrumb_link'];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <?= $this->render('/profile/menu') ?>
 <br>

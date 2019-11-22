@@ -3,6 +3,10 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
+$this->title = 'Chande password';
+$this->params['breadcrumbs'][] = ['label' => 'Profile overview', 'url' => ['/profile/index'], 'class' => 'breadcrumb_link'];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <?= $this->render('menu') ?>
 
