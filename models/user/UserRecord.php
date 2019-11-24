@@ -171,4 +171,13 @@ class UserRecord extends ActiveRecord implements IdentityInterface
         } 
         //return $this->password === $password;
     }
+
+    public static function getUserList(){
+        return ArrayHelper::map(
+            static::find()
+                ->select(['username', 'name'])
+                ->asArray()
+                ->all(), 'username', 'name'
+        );
+    }
 }
