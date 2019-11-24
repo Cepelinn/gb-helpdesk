@@ -8,7 +8,8 @@ use yii\widgets\Menu;
 /* @var $searchModel app\models\tables\TicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tickets Administration tools';
+$this->title = 'Tickets';
+$this->params['breadcrumbs'][] = ['label' => 'Administration tools', 'url' => ['/admin'], 'class' => 'breadcrumb_link'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= Menu::widget([
     'items' => [
-        ['label' => 'Back to administration tools', 'url' => ['/admin'],'options'=>['class'=>'profile_menu-item']],
         ['label' => 'Create new ticket', 'url' => ['/admin/admin-ticket/create'],'options'=>['class'=>'profile_menu-item']],
     ],
     'options' => [
