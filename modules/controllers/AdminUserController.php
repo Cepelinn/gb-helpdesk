@@ -147,6 +147,8 @@ class AdminUserController extends Controller
         } else {
             return $this->render('passwordChange', [
                 'model' => $model,
+                'username' => $user->username,
+                'userId' => $user->id
             ]);
         }
     }
