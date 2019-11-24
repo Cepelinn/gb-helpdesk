@@ -109,6 +109,7 @@ class AdminTicketController extends Controller
         return $this->render('update', [
             'model' => $model,
             'statusList' => TicketStatus::getStatusList(),
+            'userList' => UserRecord::getUserList(),
         ]);
     }
 
