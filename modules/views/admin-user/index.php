@@ -10,14 +10,14 @@ use app\models\user\UserRecord;
 /* @var $searchModel app\models\user\UserSearchModel */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users Administration tools';
+$this->title = 'Users';
+$this->params['breadcrumbs'][] = ['label' => 'Administration tools', 'url' => ['/admin'], 'class' => 'breadcrumb_link'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-record-index">
 
 <?= Menu::widget([
     'items' => [
-        ['label' => 'Back to administration tools', 'url' => ['/admin'],'options'=>['class'=>'profile_menu-item']],
         ['label' => 'Create new user', 'url' => ['/admin/admin-user/create'],'options'=>['class'=>'profile_menu-item']],
     ],
     'options' => [
