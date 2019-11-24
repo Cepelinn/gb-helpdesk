@@ -74,16 +74,49 @@ button,
   width: 100%;
   border-radius: 5px;
   display: block;
+  text-decoration: none;
+}
+
+.btn__centered {
+  line-height: 50px;
+  text-align: center;
 }
 
 .btn__approve {
   font-size: 14px;
   font-weight: 400;
   color: #ffffff;
+  border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
   background-color: #64a29e;
   -webkit-box-shadow: 0px 3px 0px 0px rgb(83, 139, 134);
   -moz-box-shadow: 0px 3px 0px 0px rgb(83, 139, 134);
   box-shadow: 0px 3px 0px 0px rgb(83, 139, 134);
+  transition-duration: 0.3s;
+}
+
+.btn__approve:hover {
+  border: 1px solid #64a29e;
+  color: #64a29e;
+  background-color: transparent;
+  transition-duration: 0.3s;
+}
+
+.btn__silent {
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 400;
+  color: #e8645a;
+  transition-duration: 0.3s;
+}
+
+.btn__silent:hover {
+  border: 1px solid #e8645a;
+  -webkit-box-shadow: 0px 3px 0px 0px #e2534b;
+  -moz-box-shadow: 0px 3px 0px 0px #e2534b;
+  box-shadow: 0px 3px 0px 0px #e2534b;
+  transition-duration: 0.3s;
 }
 
 .btn__uppercase {
@@ -144,7 +177,7 @@ button,
 
 .block-title {
   color: #7f8c8c;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 20px;
@@ -173,7 +206,7 @@ button,
 
 .page_title {
   color: #7f8c8c;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -362,6 +395,8 @@ button,
 .registration,
 .ticket-add,
 .user-record,
+.user-update_form,
+.ticket-update_form,
 .login {
   width: 400px;
   border-radius: 9px;
@@ -493,6 +528,11 @@ button,
 
 .user-view {
   margin-top: 20px;
+  margin-bottom: 20px;
+  width: 300px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 .user-view_summary {
@@ -508,6 +548,15 @@ button,
 
 .user-view_summary-category {
   font-weight: 700;
+}
+
+.user-view_button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-view_button-container .btn {
+  margin: 15px 10px;
 }
 
 .ticket-card_container {
