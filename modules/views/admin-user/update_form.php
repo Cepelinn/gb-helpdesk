@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
-<div class="user-record">
+<div class="user-update_form">
 
 		<?php $form = ActiveForm::begin(['id' => 'upd-form',
-										'class' => 'user-record_form',
+										'class' => 'user-update_form',
 										'fieldConfig' => [
 											'template' => '{input}{error}',
 											'options' => ['class' => 'form-group'],
@@ -28,6 +28,4 @@ use yii\widgets\ActiveForm;
     		<?= Html::submitButton('Save changes', ['class' => 'btn btn__approve btn__uppercase']) ?>
 		</div>
 		<?php ActiveForm::end(); ?>
-		<?= Html::a('Изменить пароль',
-                        ['/admin/admin-user/password-change', 'id' => $model->id]);?>
     </div>
