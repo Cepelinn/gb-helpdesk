@@ -1,5 +1,8 @@
 <?php
     use yii\widgets\Menu;
+
+    $this->title = 'Administration tools';
+    $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?= Menu::widget([
