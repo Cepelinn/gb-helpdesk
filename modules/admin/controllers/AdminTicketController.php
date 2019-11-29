@@ -1,22 +1,20 @@
 <?php
 
-namespace app\modules\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
+use app\models\tables\Ticket;
+use app\models\tables\TicketSearch;
+use app\models\tables\TicketStatus;
 use app\models\user\UserRecord;
-use app\models\user\UserSearchModel;
-use app\models\user\PasswordChangeFormAdmin;
-use app\models\tables\AuthAssignment;
-use app\models\tables\AuthItem;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * AdminUserController implements the CRUD actions for UserRecord model.
+ * AdminTicketController implements the CRUD actions for Ticket model.
  */
-class AdminUserController extends Controller
+class AdminTicketController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -24,16 +22,6 @@ class AdminUserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => [],
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -44,12 +32,12 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Lists all UserRecord models.
+     * Lists all Ticket models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearchModel();
+        $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -59,7 +47,7 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Displays a single UserRecord model.
+     * Displays a single Ticket model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -72,32 +60,35 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Creates a new UserRecord model.
+     * Creates a new Ticket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new UserRecord();
-
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $postt = Yii::$app->request->post("UserRecord");
-
-            $auth = Yii::$app->authManager;
-            $auth->assign($auth->getRole($postt["roleName"]), $model->id);
-
+        $model = new Ticket();
+        if ($model->load(Yii::$app->request->post())) {
+            $arr = Yii::$app->request->post('Ticket');
+            if (array_key_exists ('authorName' ,$arr )){
+                $autName = $arr['authorName'];
+                $aut = UserRecord::find()->where(['username' => $autName])->one();
+                $model->author_id = $aut->id;
+            } else {
+                $model->author_id = Yii::$app->user->id;
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+
         }
 
-        return $this->render('create_form', [
+        return $this->render('create', [
             'model' => $model,
-            'roleList' => AuthItem::getRoleList(),
+            'statusList' => TicketStatus::getStatusList(),
         ]);
     }
 
     /**
-     * Updates an existing UserRecord model.
+     * Updates an existing Ticket model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,25 +97,24 @@ class AdminUserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelRole = AuthAssignment::find($id)
-            ->where(['user_id' => $id])
-            ->one();
+
+
+        //var_dump(Yii::$app->request->post());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $postt = Yii::$app->request->post("AuthAssignment");
-            $modelRole->item_name = $postt["item_name"];
-            $modelRole->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
-        }
+        } 
 
         return $this->render('update', [
             'model' => $model,
-            'roleList' => AuthItem::getRoleList(),
+            'statusList' => TicketStatus::getStatusList(),
+            'userList' => UserRecord::getUserList(),
         ]);
     }
 
     /**
-     * Deletes an existing UserRecord model.
+     * Deletes an existing Ticket model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -137,38 +127,16 @@ class AdminUserController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionPasswordChange($id)
-    {
-        $user = $this->findModel($id);
-        $model = new PasswordChangeFormAdmin($user);
- 
-        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('passwordChange', [
-                'model' => $model,
-                'username' => $user->username,
-                'userId' => $user->id
-            ]);
-        }
-    }
-
-
-
-
-
-
-
     /**
-     * Finds the UserRecord model based on its primary key value.
+     * Finds the Ticket model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return UserRecord the loaded model
+     * @return Ticket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = UserRecord::findOne($id)) !== null) {
+        if (($model = Ticket::findOne($id)) !== null) {
             return $model;
         }
 

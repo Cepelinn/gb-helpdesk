@@ -40,17 +40,11 @@ AppAsset::register($this);
         echo Menu::widget([
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar_menu-item']],
-                    ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar_menu-item']],
-                    ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar_menu-item']],
+                    // ['label' => 'About', 'url' => ['/site/about'],'options'=>['class'=>'navbar_menu-item']],
+                    // ['label' => 'Contact', 'url' => ['/site/contact'],'options'=>['class'=>'navbar_menu-item']],
                     ['label' => 'Add ticket',
                         'url' => ['/ticket/add'],
                         'options'=>['class'=>'navbar_menu-item'],
-                        'visible' => !Yii::$app->user->isGuest
-                        ],
-                        [
-                        'label' => 'Profile',
-                        'url' => ['/profile/index'],
-                        'options' => ['class' => 'navbar_menu-item'],
                         'visible' => !Yii::$app->user->isGuest
                         ],
                         ['label' => 'Administration tools', 'url' => ['/admin\/'], 'items' => [
@@ -61,14 +55,30 @@ AppAsset::register($this);
                         'options'=>['class'=>'navbar_menu-item navbar_menu-item__sub'],
                         'visible' =>  (!Yii::$app->user->isGuest && Yii::$app->user->can('admin'))
                         ],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login'],'options'=>['class'=>'navbar_menu-item']]
-                    :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                        'url' => ['/site/logout'],
-                        'options' => ['class' => 'navbar_menu-item'],
-                        'template' => '<a href="{url}" class="url-class" data-method = "post">{label}</a>',
-                        'linkOptions' => ['data-method' => 'post']
+                        ['label' => 'Management tools', 'url' => ['/manager\/'], 'items' => [
+                            ['label' => 'Tickets', 'url' => ['/manager/ticket-management',],'options'=>['class'=>'navbar_menu-sub-item']],
+                        ],
+                        'template' => '<a href={url} class=\'sublabel\'>{label}</a>',
+                        'options'=>['class'=>'navbar_menu-item navbar_menu-item__sub'],
+                        'visible' =>  (!Yii::$app->user->isGuest && (Yii::$app->user->can('admin') || Yii::$app->user->can('manager')))
+                        ],
+                        ['label' => 'Profile (' . Yii::$app->user->identity->username . ')', 'url' => ['/profile/index'], 'items' => [
+                            ['label' => 'Logout',
+                                    'url' => ['/site/logout'],
+                                    'options' => ['class' => 'navbar_menu-sub-item'],
+                                    'template' => '<a href="{url}" class="url-class" data-method = "post">{label}</a>',
+                                    'linkOptions' => ['data-method' => 'post']
+                            ],
+                        ],
+                        'template' => '<a href={url} class=\'sublabel\'>{label}</a>',
+                        'options'=>['class'=>'navbar_menu-item navbar_menu-item__sub'],
+                        'visible' =>  (!Yii::$app->user->isGuest)
+                        ],
+                        [
+                            'label' => 'Login',
+                            'url' => ['/site/login'],
+                            'options'=>['class'=>'navbar_menu-item'],
+                            'visible' => Yii::$app->user->isGuest
                         ],
                         ['label' => 'Register',
                         'url' => ['/site/registration'],

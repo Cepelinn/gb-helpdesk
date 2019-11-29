@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\controllers;
+namespace app\modules\manager\controllers;
 
 use Yii;
 use app\models\tables\Ticket;
@@ -10,11 +10,12 @@ use app\models\user\UserRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
- * AdminTicketController implements the CRUD actions for Ticket model.
+ * TicketManagementController implements the CRUD actions for Ticket model.
  */
-class AdminTicketController extends Controller
+class TicketManagementController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -37,8 +38,27 @@ class AdminTicketController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TicketSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $search = new TicketSearch();
+
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // $rows = (new \yii\db\Query())
+        // ->select(['id', 'title'])
+        // ->from('ticket')
+        // ->where(['responsible_id' => 71])
+        // ->all();
+
+
+        // $dataProvider = $searchModel->search($rows);
+
+        $query = Ticket::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+                ->where(['responsible_id' => Yii::$app->user->id]),
+            'pagination' => [
+                'pageSize' => 15,
+            ],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -56,34 +76,6 @@ class AdminTicketController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Ticket model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Ticket();
-        if ($model->load(Yii::$app->request->post())) {
-            $arr = Yii::$app->request->post('Ticket');
-            if (array_key_exists ('authorName' ,$arr )){
-                $autName = $arr['authorName'];
-                $aut = UserRecord::find()->where(['username' => $autName])->one();
-                $model->author_id = $aut->id;
-            } else {
-                $model->author_id = Yii::$app->user->id;
-            }
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
-
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-            'statusList' => TicketStatus::getStatusList(),
         ]);
     }
 
@@ -111,20 +103,6 @@ class AdminTicketController extends Controller
             'statusList' => TicketStatus::getStatusList(),
             'userList' => UserRecord::getUserList(),
         ]);
-    }
-
-    /**
-     * Deletes an existing Ticket model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**
