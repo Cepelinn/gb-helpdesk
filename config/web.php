@@ -61,8 +61,10 @@ $config = [
 
     'modules' => [
             'admin' => [
-                'class' => 'app\modules\admin',
+                'class' => 'app\modules\admin\admin',
             ],
+            'manager' =>[
+                'class' => 'app\modules\manager\manager']
     ],
     
     'params' => $params,
