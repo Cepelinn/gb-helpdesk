@@ -38,19 +38,6 @@ class TicketManagementController extends Controller
      */
     public function actionIndex()
     {
-        // $search = new TicketSearch();
-
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        // $rows = (new \yii\db\Query())
-        // ->select(['id', 'title'])
-        // ->from('ticket')
-        // ->where(['responsible_id' => 71])
-        // ->all();
-
-
-        // $dataProvider = $searchModel->search($rows);
-
         $query = Ticket::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query
@@ -61,7 +48,6 @@ class TicketManagementController extends Controller
         ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
